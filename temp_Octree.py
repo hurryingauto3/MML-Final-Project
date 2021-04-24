@@ -177,38 +177,6 @@ class Octree:
                 else:
                     self.Children[Position] = Octree(
                         Point_TLF, Point_BRB, level=self.level)
-                # print(Point_TLF.x, Point_TLF.y, Point_TLF.z)
-                # print(Point_BRB.x, Point_BRB.y, Point_BRB.z)
-                # if(Position == 'TLF'):
-
-                # elif Position == 'TLB':
-                #     self.Children[Position] = Octree(Point(Mid_Point_x + 1, self.Top_Left_Front.y, self.Top_Left_Front.z),
-                #                                      Point(self.Bottom_Right_Back.x, Mid_Point_y, Mid_Point_z))
-
-                # elif Position == 'BRF':
-                #     self.Children[Position] = Octree(Point(Mid_Point_x + 1, Mid_Point_y + 1, self.Top_Left_Front.z),
-                #                                      Point(self.Bottom_Right_Back.x, self.Bottom_Right_Back.y, Mid_Point_z))
-
-                # elif Position == 'BLF':
-                #     self.Children[Position] = Octree(Point(self.Top_Left_Front.x, Mid_Point_y+1, self.Top_Left_Front.z),
-                #                                      Point(Mid_Point_x, self.Bottom_Right_Back.y, Mid_Point_z))
-
-                # elif Position == 'TLB':
-                #     self.Children[Position] = Octree(Point(self.Top_Left_Front.x, self.Top_Left_Front.y, Mid_Point_z + 1),
-                #                                      Point(Mid_Point_x, Mid_Point_y, self.Bottom_Right_Back.z))
-
-                # elif Position == 'TRB':
-                #     self.Children[Position] = Octree(Point(Mid_Point_x + 1, self.Top_Left_Front.y, Mid_Point_z + 1),
-                #                                      Point(self.Bottom_Right_Back.x, Mid_Point_y, self.Bottom_Right_Back.z))
-
-                # elif Position == 'BRB':
-                #     self.Children[Position] = Octree(Point(Mid_Point_x + 1, Mid_Point_y+1, Mid_Point_z + 1),
-                #                                      Point(self.Bottom_Right_Back.x, self.Bottom_Right_Back.y, self.Bottom_Right_Back.z))
-
-                # elif Position == 'BLB':
-                #     self.Children[Position] = Octree(Point(self.Top_Left_Front.x, Mid_Point_y+1, Mid_Point_z + 1),
-                #                                      Point(Mid_Point_x, self.Bottom_Right_Back.y, self.Bottom_Right_Back.z))
-
                 self.Children[Position].Add(temp_point)
                 self.Children[Position].Add(Point1)
 
@@ -252,9 +220,14 @@ def vertex_Sort(Lst):
     return out
 
 
-def Vertex_Reduction(Lst,Alpha):
+def Vertex_Reduction(Lst,Alpha,N):
 
-    for i in range(len(Lst)):
+    for j in range(N): 
+        for i in range(len(Lst),1,-1):
+            if pow(Lst[i][0]-Lst[i-1][0] , 2) + pow(Lst[i][1]-Lst[i-1][1] , 2) + pow(Lst[i][2]-Lst[i-1][2] , 2) <= Alpha:
+                Lst.pop(i)
+    return Lst
+        
 
 
 
@@ -297,7 +270,6 @@ def main():
                 face_dict[face] = face_dict[face] + (ver_in_faces,)
     for key in face_dict:
         faces.append(tuple(face_dict[key]))
-)
 
     # m_octree.Add(Point(0, 4, 4))
     # m_octree.Add(Point(4, 0, 0))
