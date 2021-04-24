@@ -1,5 +1,6 @@
 import sys
 import random
+import bpy
 
 sys.setrecursionlimit(10**8)
 
@@ -270,23 +271,14 @@ def main():
                 face_dict[face] = face_dict[face] + (ver_in_faces,)
     for key in face_dict:
         faces.append(tuple(face_dict[key]))
+    
+    new_vertex = []
+    for i in range(len(vertices)):
+        new_vertex.append( (vertices[i][0],vertices[i][1],vertices[i][2]) )
+    # Create the object
+    pc = point_cloud("",new_vertex,faces)
+    bpy.context.collection.objects.link(pc)
 
-    # m_octree.Add(Point(0, 4, 4))
-    # m_octree.Add(Point(4, 0, 0))
-    # m_octree.Add(Point(0, 0, 4))
-    # m_octree.Add(Point(0, 0, 0))
-    # m_octree.Add(Point(0, 4, 0))
-    # m_octree.Add(Point(4, 4, 0))
-    # m_octree.Add(Point(4, 0, 4))
-    # m_octree.Add(Point(4, 4, 4))
-    # m_octree.Add(Point(3, 3, 1))
-    # m_octree.Add(Point(1, 1, 1))
-    # print(m_octree.Root_Node.x, m_octree.Root_Node.y, m_octree.Root_Node.z)
-    # print(m_octree.Children)
-    # print(m_octree.getVertices())
-    # limit1, limit2 = m_octree.giveRegionLimits("TLF")
-    # print(limit1.x, limit1.y, limit1.z)
-    # print(limit2.x, limit2.y, limit2.z)
 
 
 if __name__ == "__main__":
